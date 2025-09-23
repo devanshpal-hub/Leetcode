@@ -1,0 +1,27 @@
+//Using recursion
+
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        if (head==nullptr || left == right) return head;
+        ListNode *demo = new ListNode(0);
+        demo->next=head;
+        ListNode *temp1=demo;
+        for (int i=0 ; i<left-1 ; i++) {
+            temp1=temp1->next;
+        }
+        ListNode *temp2=temp1;
+        for (int i=0 ; i<=right-left+1 ; i++) {
+            temp2=temp2->next;
+        }
+        temp1->next=reverse(temp1->next,temp2);
+        return demo->next;
+    }
+    ListNode* reverse(ListNode *head,ListNode *temp2) {
+        if (head==nullptr || head->next == temp2) return head;
+        ListNode *newhead = reverse(head->next,temp2);
+        head->next->next=head;
+        head->next=temp2;
+        return newhead;
+    }
+};
