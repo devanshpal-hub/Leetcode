@@ -16,3 +16,22 @@ ListNode* removeNthFromEnd(ListNode* head, int n) {
         temp->next=temp->next->next;
         return head;
     }
+
+//using two pointers 
+
+ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if (head==nullptr) return head;
+        ListNode *temp1=head,*temp2=head;
+        int i=1;
+        while(i<=n) {
+            temp2=temp2->next;
+            i++;
+        }
+        if (temp2==nullptr) return head->next;
+        while(temp2->next!=nullptr) {
+            temp2=temp2->next;
+            temp1=temp1->next;
+        }
+        temp1->next=temp1->next->next;
+        return head;
+    }
