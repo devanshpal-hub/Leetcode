@@ -1,0 +1,27 @@
+
+
+ListNode* reverse(ListNode *head) {
+        if (head->next==nullptr) return head;
+        ListNode *newhead=reverse(head->next);
+        head->next->next=head;
+        head->next=nullptr;
+        return newhead;
+    }
+    ListNode* removeNodes(ListNode* head) {
+        if (head==nullptr || head->next==nullptr) return head;
+
+        ListNode *rev=reverse(head);
+        ListNode *prev=rev,*next=rev->next;
+        while(next!= nullptr) {
+            if (next->val<prev->val) {
+                next=next->next;
+                continue;
+            }
+            prev->next=next;
+            prev=prev->next;
+            next=next->next;
+        }
+        prev->next=next;
+        ListNode *ans = reverse(rev);
+        return ans;
+    }
