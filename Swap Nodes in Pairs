@@ -1,0 +1,21 @@
+
+
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if (head==null || head.next==null) return head;
+        
+        ListNode t1=head,t2=head.next,t3;
+        ListNode ans=t2;
+        while(t1!=null) {
+            t3=t1;
+            t1.next=t2.next;
+            t2.next=t1;
+            t1=t1.next;
+            if((t1==null && t3.next==t1)|| (t3.next.next==null && t1.next==null))
+            return ans;
+            t2=t1.next;
+            t3.next=t2;
+        }
+        return ans;
+    }
+}
