@@ -1,0 +1,14 @@
+
+
+int timeRequiredToBuy(vector<int>& tickets, int k) {
+        int i=0,cnt=0;
+        int n = tickets.size();
+        while(tickets[k]>0) {
+            if (tickets[i]>0) {
+                tickets[i]--;
+                cnt++;
+            }
+            i=(i+1)%n;
+        }
+        return cnt;
+    }
