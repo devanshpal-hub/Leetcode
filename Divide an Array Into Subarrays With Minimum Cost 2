@@ -1,0 +1,63 @@
+
+
+class Solution {
+public:
+    long long minimumCost(vector<int>& nums, int k, int dist) {
+        multiset<int> low, high;
+        long long sumLow = 0, ans = LLONG_MAX;
+
+        for (int i = 1; i <= dist + 1; i++) {
+            low.insert(nums[i]);
+            sumLow += nums[i];
+        }
+
+        while (low.size() > k - 1) {
+            auto it = prev(low.end());
+            sumLow -= *it;
+            high.insert(*it);
+            low.erase(it);
+        }
+
+        ans = sumLow + nums[0];
+
+        for (int i = dist + 2; i < nums.size(); i++) {
+            int add = nums[i];
+            int rem = nums[i - (dist + 1)];
+
+            // remove
+            auto it = low.find(rem);
+            if (it != low.end()) {
+                sumLow -= rem;
+                low.erase(it);
+            } else {
+                high.erase(high.find(rem));
+            }
+
+            // add
+            if (low.empty() || add <= *prev(low.end())) {
+                low.insert(add);
+                sumLow += add;
+            } else {
+                high.insert(add);
+            }
+
+            // rebalance
+            if (low.size() < k - 1) {
+                auto it = high.begin();
+                sumLow += *it;
+                low.insert(*it);
+                high.erase(it);
+            }
+            if (low.size() > k - 1) {
+                auto it = prev(low.end());
+                sumLow -= *it;
+                high.insert(*it);
+                low.erase(it);
+            }
+
+            ans = min(ans, sumLow + nums[0]);
+        }
+
+        return ans;
+    }
+};
