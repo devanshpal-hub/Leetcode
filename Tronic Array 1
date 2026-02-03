@@ -1,0 +1,34 @@
+
+
+class Solution {
+public:
+    bool isTrionic(vector<int>& nums) {
+        if (nums.size()<4) return false;
+        int n=nums.size();
+        int val=0,changes=0;
+        if (nums[0]>=nums[1]) return false;
+        for (int i=0 ; i<n-1; i++) {
+            if (nums[i]==nums[i+1]) return false;
+
+            if (val==0) {
+                
+                if (nums[i]>nums[i+1]) {
+                   val++;
+                   
+                }
+            }
+            else if (val==1) {
+                if (nums[i]<nums[i+1]) {
+                    val++;
+                    
+                }
+            }
+            else if (val==2) {
+                if(nums[i]>nums[i+1]) {
+                    return false;
+                }
+            }
+        }
+        return val==2 ;
+    }
+};
