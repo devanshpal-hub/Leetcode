@@ -1,0 +1,21 @@
+
+
+class Solution {
+public:
+    int minimumDeletions(string s) {
+        int bCount = 0;     // number of 'b's seen so far
+        int deletions = 0;  // minimum deletions needed
+        
+        for (char c : s) {
+            if (c == 'b') {
+                bCount++;
+            } else { // c == 'a'
+                // Either delete this 'a' (deletions + 1)
+                // or delete all previous 'b's (bCount)
+                deletions = min(deletions + 1, bCount);
+            }
+        }
+        
+        return deletions;
+    }
+};
